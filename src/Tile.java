@@ -1,8 +1,10 @@
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.*;
 
-public class Tile extends JPanel{
+public class Tile extends JPanel implements MouseListener{
 	
 		protected static Dimension 		SIZE;
 		private static Polygon 			SIDE1;
@@ -13,15 +15,17 @@ public class Tile extends JPanel{
 		private static GradientPaint 	GRAD1;
 		private static GradientPaint 	GRAD2;
 		private static Color 			bg;
-		private int 					row;
-		private int						col;
+		private int 					x;
+		private int						y;
 		private int						layer;
+		private int 					margin = 18;
 		
 		
 		public Tile()  {
 			setOpaque(false);
 			setPreferredSize(SIZE);
 			setSize(SIZE);
+			addMouseListener(this);
 			
 		}
 		
@@ -37,18 +41,19 @@ public class Tile extends JPanel{
 			
 		}
 		
-		public void positionTile(int row, int col, int layer) {
-			this.row = row;
-			this.col = col;
+		public void positionTile(int x, int y, int layer, int offSetX, int offSetY) {
+			this.x = x;
+			this.y = y;
 			this.layer = layer;
+			setLocation(x * (SIZE.width - margin) + offSetX, y * (SIZE.height - margin) + offSetY);
 		}
 		
 		public int getRow() {
-			return row;
+			return x;
 		}
 
 		public int getCol() {
-			return col;
+			return y;
 		}
 		
 		public int getLayer() {
@@ -104,6 +109,43 @@ public class Tile extends JPanel{
 			
 			GRAD1 = new GradientPaint(20, 250, Color.WHITE, 120, 0, Color.blue);
 			GRAD2 = new GradientPaint(20, 200, Color.WHITE, 120, 0, bg);
+		}
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			removeMouseListener(this);
+
+			Container parent = getParent();
+			parent.remove(this);
+			parent.repaint();
+		}
+
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
 		}
 		
 		

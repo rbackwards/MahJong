@@ -29,9 +29,10 @@ public class MahJongBoard extends JPanel implements MouseListener
 			JOptionPane.showMessageDialog(this, "Unable to load Image", "Image Error", JOptionPane.ERROR_MESSAGE);
 		}
 
-		CharacterTile c = new CharacterTile('1');
+		/*CharacterTile c = new CharacterTile('1');
 		c.setLocation(150, 50);
-		add(c);
+		add(c);*/
+		
 		setVisible(true);
 	}
 	
@@ -51,6 +52,7 @@ public class MahJongBoard extends JPanel implements MouseListener
 	@Override
 	public void mousePressed(MouseEvent e) {
 		System.out.println("x: " + e.getX() + " y: " + e.getY() );	
+		
 	}
 
 	@Override
