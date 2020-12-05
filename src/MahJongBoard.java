@@ -7,11 +7,12 @@ public class MahJongBoard extends JPanel implements MouseListener
 	private MahJong game;
 	private MahJongModel model;
 	private Image image;
+
 	
 	public MahJongBoard(MahJong game)
 	{
 		this.game = game;
-		model = new MahJongModel(this);
+		model = new MahJongModel(this, -1);
 		//setPreferredSize(new Dimension(400, 400));
 
 
@@ -31,6 +32,14 @@ public class MahJongBoard extends JPanel implements MouseListener
 
 		
 		setVisible(true);
+	}
+	
+	public void newGame(int gameNum) {
+		model = new MahJongModel(this, gameNum);
+	}
+	
+	public int getGameNum() {
+		return model.getGameNum();
 	}
 	
 	public void paintComponent(Graphics g) {

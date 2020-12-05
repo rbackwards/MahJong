@@ -8,12 +8,19 @@ public class MahJongModel extends Tile implements TileListener
 {
 	private MahJongBoard board;
 	private ArrayList<ArrayList<Row>> layers = new ArrayList<>();
+	private int gameNum;
 
-	public MahJongModel(MahJongBoard board)
+	public MahJongModel(MahJongBoard board, int gameNum)
 	{
 		this.board = board;
-		makeGame(22);
+		this.gameNum = gameNum;
+		makeGame(gameNum);
 	}
+	
+	public int getGameNum() {
+		return gameNum;
+	}
+	
 	
 	public void makeGame(long game)
 	{
@@ -27,10 +34,10 @@ public class MahJongModel extends Tile implements TileListener
 		
 		
 		//draw layers
-		//ArrayListOfRow(1, 1, deck, 4);
-		//ArrayListOfRow(2, 2, deck, 3);
-		//ArrayListOfRow(4, 4, deck, 2);
-		//ArrayListOfRow(6, 6, deck, 1);
+		ArrayListOfRow(1, 1, deck, 4);
+		ArrayListOfRow(2, 2, deck, 3);
+		ArrayListOfRow(4, 4, deck, 2);
+		ArrayListOfRow(6, 6, deck, 1);
 		MakeBaseLayer(deck);
 		
 
