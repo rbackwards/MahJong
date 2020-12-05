@@ -57,7 +57,7 @@ public class MahJongModel extends Tile implements TileListener
 							"Deal Error", JOptionPane.ERROR_MESSAGE);
 					System.exit(1);
 				}
-				tile.positionTile(i, j, 0, xOffSet(layerNum), yOffSet(layerNum));
+				tile.positionTile(i, j, layerNum, xOffSet(layerNum), yOffSet(layerNum));
 				row.addTile(tile);
 				board.add(tile);
 			}
@@ -69,6 +69,7 @@ public class MahJongModel extends Tile implements TileListener
 	
 	public ArrayList MakeBaseLayer(TileDeck deck){
 		ArrayList<Row> layer = new ArrayList<>();
+		
 		//make layoutgrid tiles
 		for (int row = 7; row >= 0; row--)						// i = col       j = row
 		{

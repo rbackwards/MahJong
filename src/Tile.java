@@ -139,7 +139,11 @@ public class Tile extends JPanel implements MouseListener{
 		@Override
 		public void mousePressed(MouseEvent e) {
 			Container parent = getParent();
+			System.out.println("Clicked: " + toString());
+			System.out.println("X: " + x + " Y: " + y + " Layer: " + layer);
+			System.out.println();
 			setBackground(Color.BLACK);
+			parent.remove(this);
 			//listener.tileClicked(this);
 			parent.repaint();
 		}
