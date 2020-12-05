@@ -8,6 +8,7 @@ public class MahJongBoard extends JPanel implements MouseListener
 	private MahJongModel model;
 	private Image image;
 	private int gameNum;
+	private boolean sound;
 
 	
 	public MahJongBoard(MahJong game, int gameNum)
@@ -80,5 +81,14 @@ public class MahJongBoard extends JPanel implements MouseListener
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public boolean getSound() {
+		return sound;
+	}
+
+	public void setSound(boolean sound) {
+		this.sound = sound;
+		model.setSound(sound);
 	}
 }

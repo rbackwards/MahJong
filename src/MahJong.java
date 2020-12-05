@@ -99,36 +99,35 @@ public class MahJong extends JFrame implements ActionListener{
 		if(str.equals("Play")) {
 			gameNum = rand.nextInt(500);
 			//Container parent = getParent();
-			//remove(board);
-			//board = null;
-			//board = new MahJongBoard(this, gameNum);
-			board.newGame(gameNum);
-			//add(board);
-			//repaint();
+			remove(board);
+			board = new MahJongBoard(this, gameNum);
+			add(board);
+			revalidate();
+			repaint();
 			
 		}
 		
 		if(str.equals("Restart")) {
 			int gm = board.getGameNum();
 			remove(board);
-			board = null;
 			board = new MahJongBoard(this, gm);
-			//board.newGame(gm);
 			add(board);
+			revalidate();
+			repaint();
 		}
 		
 		if(str.equals("Numbered")) {		
 			num = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter Game Seed(-1 for random)",  -1));
 			remove(board);
-			board = null;
 			board = new MahJongBoard(this, num);
-			board.newGame(num);
 			add(board);
+			revalidate();
+			repaint();
 		}
 		
 		if(str.equals("Exit")) {
 			int x = JOptionPane.showConfirmDialog(null, 
-                "Are you sure you want to exit ?", "Comform !",
+                "Are you sure you want to exit ?", "Confirm !",
                 JOptionPane.YES_NO_OPTION);
 
             if(x == JOptionPane.YES_OPTION) {
@@ -139,10 +138,10 @@ public class MahJong extends JFrame implements ActionListener{
 		}
 		
 		if(str.equals("On")) {
-			sound = true;
+			board.setSound(true);
 		}
 		if(str.equals("Off")) {
-			sound = false;
+			board.setSound(false);
 		}
 		
 		if(str.equals("Operation")) {

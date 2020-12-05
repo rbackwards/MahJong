@@ -3,6 +3,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 
 public class Tile extends JPanel implements MouseListener{
 	
@@ -21,9 +22,10 @@ public class Tile extends JPanel implements MouseListener{
 		private TileListener 			listener;
 		private int						layer;
 		private int 					margin = 18;
+		private	Border			normal = BorderFactory.createLineBorder(Color.BLACK);	// border of unselected puzzle piece
+		private	Border			selected = BorderFactory.createLineBorder(Color.YELLOW, 5);	// border of selected puzzle piece
 		
 		
-		private PlayClip clip = new PlayClip("audio/stone-scraping.wav", true);
 		
 		
 		public Tile()  {
@@ -39,15 +41,8 @@ public class Tile extends JPanel implements MouseListener{
 		}
 		
 		
-		public boolean matches(Tile other) {
-			
-			if(this.getClass() == other.getClass()) {					
-				return true;
-					
-			}
-	
-			return false;	
-			
+		public boolean matches(Tile other) {		
+			return this.getClass() == other.getClass();
 		}
 		
 		public void positionTile(int x, int y, int layer, int offSetX, int offSetY) {
@@ -128,9 +123,15 @@ public class Tile extends JPanel implements MouseListener{
 			return row;
 		}
 		
-		public void addTileListner(TileListener listener) {
-			this.listener = listener;
+		public void setSelected(boolean b) {
+			if(b) {
+				setBorder(selected);
+			}
+			else {
+				setBorder(null);
+			}
 		}
+		
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -145,11 +146,11 @@ public class Tile extends JPanel implements MouseListener{
 			System.out.println("Clicked: " + toString());
 			System.out.println("X: " + x + " Y: " + y + " Layer: " + layer);
 			System.out.println();
-			setBackground(Color.BLACK);
 			//parent.remove(this);
 			listener.tileClicked(this);
+			revalidate();
 			parent.repaint();
-			clip.play(); // when the tiles are removed
+			
 		}
 
 		@Override

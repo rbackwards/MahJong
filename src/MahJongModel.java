@@ -9,7 +9,11 @@ public class MahJongModel extends Tile implements TileListener
 	private MahJongBoard board;
 	private ArrayList<ArrayList<Row>> layers = new ArrayList<>();
 	private int gameNum;
-
+	private PlayClip clip = new PlayClip("audio/stone-scraping.wav", true);
+	private boolean sound = true;
+	private Tile selected;
+	
+	
 	public MahJongModel(MahJongBoard board, int gameNum)
 	{
 		this.board = board;
@@ -45,11 +49,11 @@ public class MahJongModel extends Tile implements TileListener
 	
 	public ArrayList ArrayListOfRow(int rowSize, int colSize, TileDeck deck, int layerNum){
 		ArrayList<Row> layer = new ArrayList<>();
-		for (int i = 0; i < rowSize; i++)						// i = row       j = col
+		for (int j = colSize-1; j >= 0; j--)					// i = row       j = col
 		{
-			Row row = new Row(50,50*i);
+			Row row = new Row(50,50*j);
 			
-			for (int j = colSize-1; j >= 0; j--) {
+			for (int i = 0; i < rowSize; i++) {
 				Tile	tile = deck.deal();
 				if (tile == null)	
 				{
@@ -136,6 +140,10 @@ public class MahJongModel extends Tile implements TileListener
 		return layer;
 	}
 	
+	public void setSound(boolean b) {
+		sound = b;
+	}
+	
 	private int xOffSet(int layer) {
 		switch(layer) {
 			case(0):
@@ -170,12 +178,33 @@ public class MahJongModel extends Tile implements TileListener
 		}
 	}
 	
+	
 	@Override
 		public void tileClicked(Tile tile) {
 			System.out.println("I was clicked " + tile.toString());
-			if (tile.getRow().isOpen(tile)) {
-				tile.setVisible(false);
+			
+			if(selected == tile) {
+				tile.setSelected(false);
+				return;
 			}
+			
+			if(selected != null && tile.matches(selected)) {
+				
+				tile.setVisible(false);
+				selected.setVisible(false);
+				selected.setSelected(false);
+				selected = null;
+				
+				if(sound) {
+					clip.play(); // when the tiles are removed
+				}
+				
+			}			
+			else if (tile.getRow().isOpen(tile) && selected == null) {
+				tile.setSelected(true);
+				selected = tile;	
+			}
+			
 	}
-			// find it's index
+		
 }
