@@ -8,6 +8,11 @@ public class WhiteDragonTile extends Tile
 		setToolTipText("White Dragon");
 	}
 	
+	@Override
+	public Tile makeCopy() {
+		return new WhiteDragonTile();
+	}
+	
 	public String toString()
 	{
 		return "White Dragon";

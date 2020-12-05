@@ -35,19 +35,18 @@ public class CharacterTile extends Tile{
 		public boolean matches(Tile other) {
 			
 			if(super.matches(other)) {
-				String symbl = symbol+"";
-				String str1 = other.toString();
-
-				char ch = str1.charAt(str1.length()-1);
-				
-				String str = Character.toString(ch);
-				
-					if(symbl.equals(str)) {
-						 
-						return true;
-					}
+				return symbol == ((CharacterTile) other).getSymbol();
 			}
 			return false;
+		}
+		
+		@Override
+		public Tile makeCopy() {
+			return new CharacterTile(symbol);
+		}
+		
+		public char getSymbol() {
+			return symbol;
 		}
 		
 		public String toChinese() {

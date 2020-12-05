@@ -4,6 +4,11 @@ public class Bamboo1Tile extends PictureTile
 	{
 		super("Sparrow");
 	}
+	
+	@Override
+	public Tile makeCopy() {
+		return new Bamboo1Tile();
+	}
 
 	public String toString()
 	{

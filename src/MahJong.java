@@ -100,7 +100,7 @@ public class MahJong extends JFrame implements ActionListener{
 			gameNum = rand.nextInt(500);
 			//Container parent = getParent();
 			remove(board);
-			board = new MahJongBoard(this, gameNum);
+			board = new MahJongBoard(this, 357);   //TODO UNDO SEED
 			add(board);
 			revalidate();
 			repaint();

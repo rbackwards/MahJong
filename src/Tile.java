@@ -45,6 +45,10 @@ public class Tile extends JPanel implements MouseListener{
 			return this.getClass() == other.getClass();
 		}
 		
+		public Tile makeCopy() {	
+			return null;
+		}
+		
 		public void positionTile(int x, int y, int layer, int offSetX, int offSetY) {
 			this.x = x;
 			this.y = y;

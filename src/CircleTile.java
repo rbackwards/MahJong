@@ -8,6 +8,11 @@ public class CircleTile extends RankTile{
 			super(rank);
 		}
 		
+		@Override
+		public Tile makeCopy() {
+			return new CircleTile(rank);
+		}
+		
 		
 		public String toString() {
 			return "Circle " + super.rank;

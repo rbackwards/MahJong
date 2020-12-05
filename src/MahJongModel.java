@@ -9,7 +9,9 @@ import java.util.Stack;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ScrollPaneConstants;
 
 public class MahJongModel extends Tile implements TileListener
 {
@@ -20,7 +22,8 @@ public class MahJongModel extends Tile implements TileListener
 	private boolean sound = true;
 	private Tile selected;
 	private Stack<Tile> undoStack = new Stack();
-	private	JPanel[]	discard = new JPanel[2];
+	private ArrayList<Tile> discardList = new ArrayList<>();
+	private	JPanel	discard = null;
 	
 	public MahJongModel(MahJongBoard board, int gameNum)
 	{
@@ -52,7 +55,7 @@ public class MahJongModel extends Tile implements TileListener
 		ArrayListOfRow(6, 6, deck, 1);
 		MakeBaseLayer(deck);
 		
-		undoPane();
+		
 	}
 	
 	public ArrayList ArrayListOfRow(int rowSize, int colSize, TileDeck deck, int layerNum){
@@ -153,26 +156,44 @@ public class MahJongModel extends Tile implements TileListener
 	}
 	
 	public void undoPane() {
-		discard[0].setPreferredSize(new Dimension(0, 2 * 121 + 33));
-		setBorder(BorderFactory.createRaisedBevelBorder());
-
-		discard[0] = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		discard[1] = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		if(discard != null) {
+			return;
+		}
+		discard = new JPanel(new FlowLayout());
 		
-		discard[0].setBackground(Color.black);
+		discard.setBorder(BorderFactory.createRaisedBevelBorder());
+		
+		discard.setBackground(Color.black);
+		
+		
+		JScrollPane scroller = new JScrollPane(discard);
+		
+		scroller.setSize(new Dimension(200, 200));
+		scroller.setLocation(board.getWidth()-300, 0);
+		scroller.setBackground(Color.black);
+		
+		
+		board.add(scroller);
 	}
 	
 	public void undo() {
 		try {
-		Tile tile1 = undoStack.pop();
-		Tile tile2 = undoStack.pop();
-		tile1.setVisible(true);
-		tile2.setVisible(true);
-		board.revalidate();
-		board.repaint();
+			Tile tile1 = undoStack.pop();
+			Tile tile2 = undoStack.pop();
+			tile1.setVisible(true);
+			tile2.setVisible(true);
+			board.revalidate();
+			board.repaint();
+			
+			//remove jscroller
+			if(discardList.size() > 0) {
+				Tile t = discardList.remove(discardList.size()-1);
+				discard.remove(t);
+			}
+
 		}
 		catch(EmptyStackException e) {
-			//TODO add alert undo emptpy
+			//TODO add alert undo empty
 		}
 	}
 	
@@ -215,7 +236,8 @@ public class MahJongModel extends Tile implements TileListener
 	
 
 	@Override
-		public void tileClicked(Tile tile) {			
+		public void tileClicked(Tile tile) {
+			undoPane();
 			System.out.println("I was clicked " + tile.toString());
 			
 			if(selected == tile) {
@@ -233,7 +255,12 @@ public class MahJongModel extends Tile implements TileListener
 				tile.setVisible(false);
 				selected.setVisible(false);
 				selected.setSelected(false);
-				
+
+				Tile selectedCopy = selected.makeCopy();
+				discardList.add(selectedCopy);
+
+				discard.add(selectedCopy);
+								
 				undoStack.push(tile);
 				undoStack.push(selected);
 				

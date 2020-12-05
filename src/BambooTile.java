@@ -87,6 +87,11 @@ public class BambooTile extends RankTile{
 		
 	}
 	
+	@Override
+	public Tile makeCopy() {
+		return new BambooTile(rank);
+	}
+	
 	public String toString() {
 		return "Bamboo " + super.rank;
 	}
