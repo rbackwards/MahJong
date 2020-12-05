@@ -185,6 +185,7 @@ public class MahJongModel extends Tile implements TileListener
 			
 			if(selected == tile) {
 				tile.setSelected(false);
+				selected = null;
 				return;
 			}
 			
@@ -199,7 +200,8 @@ public class MahJongModel extends Tile implements TileListener
 					clip.play(); // when the tiles are removed
 				}
 				
-			}			
+			}
+			
 			else if (tile.getRow().isOpen(tile) && selected == null) {
 				tile.setSelected(true);
 				selected = tile;	
