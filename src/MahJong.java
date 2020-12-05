@@ -137,6 +137,10 @@ public class MahJong extends JFrame implements ActionListener{
             }
 		}
 		
+		if(str.equals("Undo")) {
+			board.undo();
+		}
+		
 		if(str.equals("On")) {
 			board.setSound(true);
 		}

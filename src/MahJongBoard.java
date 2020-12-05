@@ -52,6 +52,11 @@ public class MahJongBoard extends JPanel implements MouseListener
 		g.drawImage(image, getParent().getWidth()/2 - image.getWidth(null) /2, getParent().getHeight()/2 - image.getHeight(null) /2, this);
 		
 	}
+	
+	public void undo() {
+		model.undo();
+	}
+	
 
 	@Override
 	public void mouseClicked(MouseEvent e) {

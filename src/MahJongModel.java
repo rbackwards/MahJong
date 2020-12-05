@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EmptyStackException;
+import java.util.Stack;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -12,7 +14,7 @@ public class MahJongModel extends Tile implements TileListener
 	private PlayClip clip = new PlayClip("audio/stone-scraping.wav", true);
 	private boolean sound = true;
 	private Tile selected;
-	
+	private Stack<Tile> undoStack = new Stack();;
 	
 	public MahJongModel(MahJongBoard board, int gameNum)
 	{
@@ -144,6 +146,23 @@ public class MahJongModel extends Tile implements TileListener
 		sound = b;
 	}
 	
+	public void undo() {
+		try {
+		Tile tile1 = undoStack.pop();
+		Tile tile2 = undoStack.pop();
+		tile1.setVisible(true);
+		tile2.setVisible(true);
+		board.revalidate();
+		board.repaint();
+		}
+		catch(EmptyStackException e) {
+			//TODO add alert undo emptpy
+		}
+	}
+	
+	
+	
+	
 	private int xOffSet(int layer) {
 		switch(layer) {
 			case(0):
@@ -178,7 +197,7 @@ public class MahJongModel extends Tile implements TileListener
 		}
 	}
 	
-	
+
 	@Override
 		public void tileClicked(Tile tile) {
 			System.out.println("I was clicked " + tile.toString());
@@ -194,6 +213,10 @@ public class MahJongModel extends Tile implements TileListener
 				tile.setVisible(false);
 				selected.setVisible(false);
 				selected.setSelected(false);
+				
+				undoStack.push(tile);
+				undoStack.push(selected);
+				
 				selected = null;
 				
 				if(sound) {
