@@ -4,14 +4,15 @@ import java.util.Arrays;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
-public class MahJongModel extends Tile
+public class MahJongModel extends Tile implements TileListener
 {
 	private MahJongBoard board;
+	private ArrayList<ArrayList<Row>> layers = new ArrayList<>();
 
 	public MahJongModel(MahJongBoard board)
 	{
 		this.board = board;
-		makeGame(-1);
+		makeGame(22);
 	}
 	
 	public void makeGame(long game)
@@ -157,4 +158,13 @@ public class MahJongModel extends Tile
 				return 0;
 		}
 	}
+	
+	@Override
+		public void tileClicked(Tile tile) {
+			System.out.println("I was clicked " + tile.toString());
+			if (tile.getRow().isOpen(tile)) {
+				tile.setVisible(false);
+			}
+	}
+			// find it's index
 }

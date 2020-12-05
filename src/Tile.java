@@ -17,6 +17,8 @@ public class Tile extends JPanel implements MouseListener{
 		private static Color 			bg;
 		private int 					x;
 		private int						y;
+		private Row						row;
+		private TileListener 			listener;
 		private int						layer;
 		private int 					margin = 18;
 		
@@ -27,6 +29,10 @@ public class Tile extends JPanel implements MouseListener{
 			setSize(SIZE);
 			addMouseListener(this);
 			
+		}
+		
+		public void addTileListener(TileListener listener) {
+			this.listener = listener;
 		}
 		
 		
@@ -48,11 +54,11 @@ public class Tile extends JPanel implements MouseListener{
 			setLocation(x * (SIZE.width - margin) + offSetX, y * (SIZE.height - margin) + offSetY);
 		}
 		
-		public int getRow() {
+		public int getx() {
 			return x;
 		}
 
-		public int getCol() {
+		public int gety() {
 			return y;
 		}
 		
@@ -110,6 +116,18 @@ public class Tile extends JPanel implements MouseListener{
 			GRAD1 = new GradientPaint(20, 250, Color.WHITE, 120, 0, Color.blue);
 			GRAD2 = new GradientPaint(20, 200, Color.WHITE, 120, 0, bg);
 		}
+		
+		public void setRow(Row row) {
+			this.row = row;
+		}
+		
+		public Row getRow() {
+			return row;
+		}
+		
+		public void addTileListner(TileListener listener) {
+			this.listener = listener;
+		}
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -120,13 +138,11 @@ public class Tile extends JPanel implements MouseListener{
 
 		@Override
 		public void mousePressed(MouseEvent e) {
-			removeMouseListener(this);
-
 			Container parent = getParent();
-			parent.remove(this);
+			setBackground(Color.BLACK);
+			listener.tileClicked(this);
 			parent.repaint();
 		}
-
 
 		@Override
 		public void mouseReleased(MouseEvent e) {

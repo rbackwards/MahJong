@@ -17,7 +17,7 @@ public class MahJongBoard extends JPanel implements MouseListener
 
 
 		setLayout(null);
-		addMouseListener(this);
+		//addMouseListener(this);
 		setBackground(Color.red);
 		image = Toolkit.getDefaultToolkit().getImage("images/dragon_bg.png");
 		MediaTracker tracker = new MediaTracker(this);
@@ -29,9 +29,6 @@ public class MahJongBoard extends JPanel implements MouseListener
 			JOptionPane.showMessageDialog(this, "Unable to load Image", "Image Error", JOptionPane.ERROR_MESSAGE);
 		}
 
-		/*CharacterTile c = new CharacterTile('1');
-		c.setLocation(150, 50);
-		add(c);*/
 		
 		setVisible(true);
 	}
