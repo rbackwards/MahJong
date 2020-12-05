@@ -244,7 +244,10 @@ public class MahJongModel extends Tile implements TileListener
 					
 			}
 		}
-		
+		System.out.println("Index from above " + aboveIndexNum);
+		if(aboveIndexNum < 0 || aboveIndexNum > 5) {
+			return false;
+		}
 		
 		if(rowNumber == 0 
 				|| rowNumber ==  layerList.get(layerNumber).size()-1
@@ -317,7 +320,19 @@ public class MahJongModel extends Tile implements TileListener
 				return;
 			}
 			
+			int tileLayerNum = tile.getRow().getLayer();
+			ArrayList<Row> tileLayer = layerList.get(tileLayerNum);
 			
+			int rowIndex = tileLayer.indexOf(tile.getRow());
+			int index = tile.getRow().getIndexOf(tile);
+			
+			if(rowIndex == 4 && index == 0 && tileLayerNum == 0 && layerList.get(0).get(4).getTile(0).isVisible()) {
+				return;
+			}
+			
+			if(rowIndex == 3 && index == 12 && tileLayerNum == 0 && layerList.get(0).get(3).getTile(12).isVisible()) {
+				return;
+			}
 			
 			if(selected != null && tile.matches(selected)) {
 				tileCount -= 2;
