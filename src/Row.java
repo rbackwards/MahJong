@@ -22,8 +22,8 @@ public class Row {
         if (index == 0 || index == row.size() - 1) {
             return true;
         }		
-        Tile left = row.get(index - 1);
-        Tile right = row.get(index + 1);
+        	Tile left = row.get(index - 1);
+        	Tile right = row.get(index + 1);
         return !left.isVisible() || !right.isVisible();
    }
 }

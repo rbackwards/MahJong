@@ -1,4 +1,6 @@
+import java.awt.Container;
 import java.awt.event.*;
+import java.util.Random;
 
 import javax.swing.*;
 
@@ -7,11 +9,13 @@ public class MahJong extends JFrame implements ActionListener{
 	private JMenuBar menuBar = new JMenuBar();
 	private JMenu menu = new JMenu("Menu");
 	private int num;
+	Random rand = new Random();
+	private int gameNum = rand.nextInt(500);
 	private boolean sound = true;
 	
 	public MahJong()
 	{
-		board = new MahJongBoard(this);
+		board = new MahJongBoard(this, gameNum);
 		
 		setTitle("MahJong");
 		setSize(1800,1000);
@@ -89,36 +93,38 @@ public class MahJong extends JFrame implements ActionListener{
 		
 	}
 	
-	public static void main(String[] args) {
-		new MahJong();
-	}
-
-	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String str = e.getActionCommand();
 		
 		if(str.equals("Play")) {
-			board = null;
+			gameNum = rand.nextInt(500);
 			//Container parent = getParent();
-			board = new MahJongBoard(this);
-			board.newGame(-1);
-			//parent.repaint();
+			remove(board);
+			board = null;
+			board = new MahJongBoard(this, -1);
+			//board.newGame(-1);
+			add(board);
+			//repaint();
+			
 		}
 		
 		if(str.equals("Restart")) {
 			int gm = board.getGameNum();
+			remove(board);
 			board = null;
-			board = new MahJongBoard(this);
-			board.newGame(gm);
+			board = new MahJongBoard(this, gm);
+			//board.newGame(gm);
+			add(board);
 		}
 		
 		if(str.equals("Numbered")) {		
 			num = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter Game Seed(-1 for random)",  -1));
-
+			remove(board);
 			board = null;
-			board = new MahJongBoard(this);
+			board = new MahJongBoard(this, num);
 			board.newGame(num);
+			add(board);
 		}
 		
 		if(str.equals("Exit")) {
@@ -156,4 +162,13 @@ public class MahJong extends JFrame implements ActionListener{
 		
 		
 	}
+	
+	
+	
+	
+	
+	public static void main(String[] args) {
+		new MahJong();
+	}
+
 }

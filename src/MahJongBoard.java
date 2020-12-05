@@ -7,12 +7,14 @@ public class MahJongBoard extends JPanel implements MouseListener
 	private MahJong game;
 	private MahJongModel model;
 	private Image image;
+	private int gameNum;
 
 	
-	public MahJongBoard(MahJong game)
+	public MahJongBoard(MahJong game, int gameNum)
 	{
 		this.game = game;
-		model = new MahJongModel(this, -1);
+		this.gameNum = gameNum;
+		model = new MahJongModel(this, gameNum);
 		//setPreferredSize(new Dimension(400, 400));
 
 
@@ -20,7 +22,7 @@ public class MahJongBoard extends JPanel implements MouseListener
 		setLayout(null);
 		//addMouseListener(this);
 		setBackground(Color.red);
-		image = Toolkit.getDefaultToolkit().getImage("images/dragon_bg.png");
+		image = Toolkit.getDefaultToolkit().getImage("bin/images/dragon_bg.png");
 		MediaTracker tracker = new MediaTracker(this);
 		tracker.addImage(image, 0);
 		try {

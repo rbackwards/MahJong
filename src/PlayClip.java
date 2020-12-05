@@ -110,7 +110,7 @@ public class PlayClip implements LineListener
 	 * Class test and validation.
 	 */
 
-	public static void main(String[] args)
+	/*public static void main(String[] args)
 	{
 		try
 		{
@@ -123,5 +123,5 @@ public class PlayClip implements LineListener
 			Thread.sleep(2000);
 		}
 		catch (InterruptedException ie) {}
-	}
+	}*/
 }

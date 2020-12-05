@@ -23,6 +23,9 @@ public class Tile extends JPanel implements MouseListener{
 		private int 					margin = 18;
 		
 		
+		private PlayClip clip = new PlayClip("audio/stone-scraping.wav", true);
+		
+		
 		public Tile()  {
 			setOpaque(false);
 			setPreferredSize(SIZE);
@@ -146,6 +149,7 @@ public class Tile extends JPanel implements MouseListener{
 			parent.remove(this);
 			//listener.tileClicked(this);
 			parent.repaint();
+			clip.play(); // when the tiles are removed
 		}
 
 		@Override
