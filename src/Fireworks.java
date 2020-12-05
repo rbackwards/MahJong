@@ -375,7 +375,7 @@ public class Fireworks implements Runnable
 	 * Test and demonstration.
 	 */
 
-	public static void main(String[] args)
+	/*public static void main(String[] args)
 	{
 		JFrame		frame = new JFrame();
 		Fireworks	fw = new Fireworks();
@@ -395,6 +395,6 @@ public class Fireworks implements Runnable
 			fw.stop();
 		}
 		catch (InterruptedException ie) {}
-	}
+	}*/
 }
 

@@ -37,8 +37,6 @@ public class Row {
 	}
 	
 	public boolean isOpen(Tile tile) {
-        // TODO row 3 and 4 special cases
-
         int index = row.indexOf(tile);
         if (index == 0 || index == row.size() - 1) {
             return true;
