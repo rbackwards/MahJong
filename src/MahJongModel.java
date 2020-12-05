@@ -26,6 +26,7 @@ public class MahJongModel extends Tile implements TileListener
 	private	JPanel	discard = null;
 	private int tileCount = 144;
 	private Fireworks reward;
+	private ArrayList<ArrayList<Row>> layerList = new ArrayList<>();
 	
 	public MahJongModel(MahJongBoard board, int gameNum)
 	{
@@ -50,21 +51,20 @@ public class MahJongModel extends Tile implements TileListener
 			deck.shuffle(game);
 		
 		
-		//draw layers
-		ArrayListOfRow(1, 1, deck, 4);
-		ArrayListOfRow(2, 2, deck, 3);
-		ArrayListOfRow(4, 4, deck, 2);
-		ArrayListOfRow(6, 6, deck, 1);
-		MakeBaseLayer(deck);
-		
-		
+		//draw layers and add them to a list of layers
+		layerList.add(ArrayListOfRow(1, 1, deck, 4));
+		layerList.add(ArrayListOfRow(2, 2, deck, 3));
+		layerList.add(ArrayListOfRow(4, 4, deck, 2));
+		layerList.add(ArrayListOfRow(6, 6, deck, 1));
+		layerList.add(MakeBaseLayer(deck));
+
 	}
 	
 	public ArrayList ArrayListOfRow(int rowSize, int colSize, TileDeck deck, int layerNum){
 		ArrayList<Row> layer = new ArrayList<>();
 		for (int j = colSize-1; j >= 0; j--)					// i = row       j = col
 		{
-			Row row = new Row(50,50*j);
+			Row row = new Row(50,50*j, layerNum);
 			
 			for (int i = 0; i < rowSize; i++) {
 				Tile	tile = deck.deal();
@@ -92,7 +92,7 @@ public class MahJongModel extends Tile implements TileListener
 		//make layoutgrid tiles
 		for (int row = 7; row >= 0; row--)						// i = col       j = row
 		{
-			Row theRow = new Row(50,50*row);
+			Row theRow = new Row(50,50*row, 0);
 			
 			int colNum = 12;
 			if (row == 3) {
@@ -200,7 +200,15 @@ public class MahJongModel extends Tile implements TileListener
 		}
 	}
 	
-	
+	public boolean tileAboveIsOpen(Tile t) {	
+		int layerNumber = t.getRow().getLayer();
+		
+		if(layerNumber == 3) {
+			System.out.print(layerList.get(0).get(0).getTile(0));
+		}
+		
+		return false;
+	}
 	
 	
 	private int xOffSet(int layer) {
@@ -246,6 +254,10 @@ public class MahJongModel extends Tile implements TileListener
 			if(selected == tile) {
 				tile.setSelected(false);
 				selected = null;
+				return;
+			}
+			
+			if(!tileAboveIsOpen(tile)) {
 				return;
 			}
 			
