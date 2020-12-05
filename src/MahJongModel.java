@@ -326,11 +326,14 @@ public class MahJongModel extends Tile implements TileListener
 			int rowIndex = tileLayer.indexOf(tile.getRow());
 			int index = tile.getRow().getIndexOf(tile);
 			
-			if(rowIndex == 4 && index == 0 && tileLayerNum == 0 && layerList.get(0).get(4).getTile(0).isVisible()) {
+			
+			
+			System.out.println(layerList.get(0).get(4).getTile(12).toString() + " tile is visible: " + layerList.get(0).get(4).getTile(12).isVisible());
+			if(rowIndex == 4 && index == 0 && tileLayerNum == 0 && layerList.get(0).get(3).getTile(0).isVisible()) {
 				return;
 			}
 			
-			if(rowIndex == 3 && index == 12 && tileLayerNum == 0 && layerList.get(0).get(3).getTile(12).isVisible()) {
+			if(rowIndex == 3 && index == 12 && tileLayerNum == 0 && layerList.get(0).get(4).getTile(12).isVisible()) {
 				return;
 			}
 			
