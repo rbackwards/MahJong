@@ -24,6 +24,8 @@ public class MahJongModel extends Tile implements TileListener
 	private Stack<Tile> undoStack = new Stack();
 	private ArrayList<Tile> discardList = new ArrayList<>();
 	private	JPanel	discard = null;
+	private int tileCount = 144;
+	private Fireworks reward;
 	
 	public MahJongModel(MahJongBoard board, int gameNum)
 	{
@@ -180,6 +182,7 @@ public class MahJongModel extends Tile implements TileListener
 		try {
 			Tile tile1 = undoStack.pop();
 			Tile tile2 = undoStack.pop();
+			tileCount += 2;
 			tile1.setVisible(true);
 			tile2.setVisible(true);
 			board.revalidate();
@@ -193,7 +196,7 @@ public class MahJongModel extends Tile implements TileListener
 
 		}
 		catch(EmptyStackException e) {
-			//TODO add alert undo empty
+			JOptionPane.showMessageDialog(null, "Nothing to undo.");
 		}
 	}
 	
@@ -251,7 +254,7 @@ public class MahJongModel extends Tile implements TileListener
 			}
 			
 			if(selected != null && tile.matches(selected)) {
-				
+				tileCount -= 2;
 				tile.setVisible(false);
 				selected.setVisible(false);
 				selected.setSelected(false);
@@ -268,6 +271,12 @@ public class MahJongModel extends Tile implements TileListener
 				
 				if(sound) {
 					clip.play(); // when the tiles are removed
+				}
+				
+				if(tileCount == 0){
+					reward = new Fireworks(board);
+					reward.setSound(sound);
+					reward.fire();
 				}
 				
 			}
