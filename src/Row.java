@@ -19,12 +19,19 @@ public class Row {
 	}
 	
 	public Tile getTile(int index) {
-		if(index >= 0 && index < row.size() - 1) {
+		if(index >= 0 && index < row.size()) {
 			return row.get(index);
 		}
 		return null;
 	}
 	
+	public int getIndexOf(Tile t) {
+		return row.indexOf(t);
+	}
+	
+	public int size() {
+		return row.size();
+	}
 	public int getLayer() {
 		return layerNum;
 	}

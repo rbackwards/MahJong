@@ -1,14 +1,17 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Scrollbar;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
@@ -27,6 +30,7 @@ public class MahJongModel extends Tile implements TileListener
 	private int tileCount = 144;
 	private Fireworks reward;
 	private ArrayList<ArrayList<Row>> layerList = new ArrayList<>();
+	private JScrollPane scroller = null;
 	
 	public MahJongModel(MahJongBoard board, int gameNum)
 	{
@@ -51,12 +55,14 @@ public class MahJongModel extends Tile implements TileListener
 			deck.shuffle(game);
 		
 		
-		//draw layers and add them to a list of layers
-		layerList.add(ArrayListOfRow(1, 1, deck, 4));
-		layerList.add(ArrayListOfRow(2, 2, deck, 3));
-		layerList.add(ArrayListOfRow(4, 4, deck, 2));
+		//draw layers and add them to a list of layers						
+		//layerList.add(ArrayListOfRow(1, 1, deck, 4));
+		//layerList.add(ArrayListOfRow(2, 2, deck, 3));
+		//layerList.add(ArrayListOfRow(4, 4, deck, 2));
 		layerList.add(ArrayListOfRow(6, 6, deck, 1));
 		layerList.add(MakeBaseLayer(deck));
+		
+		Collections.reverse(layerList);
 
 	}
 	
@@ -167,13 +173,11 @@ public class MahJongModel extends Tile implements TileListener
 		
 		discard.setBackground(Color.black);
 		
-		
-		JScrollPane scroller = new JScrollPane(discard);
+		scroller = new JScrollPane(discard);
 		
 		scroller.setSize(new Dimension(200, 200));
 		scroller.setLocation(board.getWidth()-300, 0);
 		scroller.setBackground(Color.black);
-		
 		
 		board.add(scroller);
 	}
@@ -200,14 +204,61 @@ public class MahJongModel extends Tile implements TileListener
 		}
 	}
 	
-	public boolean tileAboveIsOpen(Tile t) {	
+	public boolean hasTileAbove(Tile t) {	
 		int layerNumber = t.getRow().getLayer();
 		
-		if(layerNumber == 3) {
-			System.out.print(layerList.get(0).get(0).getTile(0));
+		if(layerNumber == 4) {
+			return false;
 		}
 		
-		return false;
+		if(layerNumber == 3) {
+			return layerList.get(4).get(0).getTile(0).isVisible();
+		}
+		
+		int index = t.getRow().getIndexOf(t);
+		int rowNumber = layerList.get(layerNumber).indexOf(t.getRow());
+		int aboveIndexNum = index-1;
+		
+		if(layerNumber == 0) {
+			switch(rowNumber) {
+			case 0:
+				return false;
+			case 1:
+				break;
+			case 2:
+				aboveIndexNum = index - 2;
+				break;
+			case 3:
+				aboveIndexNum = index - 3;
+				break;
+			case 4:
+				aboveIndexNum = index - 3;
+				break;
+			case 5:
+				aboveIndexNum = index - 2;
+				break;
+			case 6:
+				break;
+			case 7: 
+				return false;
+					
+			}
+		}
+		
+		
+		if(rowNumber == 0 
+				|| rowNumber ==  layerList.get(layerNumber).size()-1
+				|| index == 0
+				|| index == layerList.get(layerNumber).get(rowNumber).size()-1) {
+			return false;
+		}
+		
+		ArrayList<Row> aboveLayer = layerList.get(layerNumber+1);
+		int aboveRowNum = rowNumber-1;
+		
+		
+		return aboveLayer.get(aboveRowNum).getTile(aboveIndexNum).isVisible();
+	
 	}
 	
 	
@@ -256,14 +307,17 @@ public class MahJongModel extends Tile implements TileListener
 				selected = null;
 				return;
 			}
-			
-			if(!tileAboveIsOpen(tile)) {
-				return;
-			}
-			
+			System.out.println("Has Tile above " + hasTileAbove(tile) + " " + tile);
 			if(!tile.getRow().isOpen(tile)){
 				return;
 			}
+			
+			if(hasTileAbove(tile)) {
+				System.out.println("Has Tile above " + tile.toString());
+				return;
+			}
+			
+			
 			
 			if(selected != null && tile.matches(selected)) {
 				tileCount -= 2;
@@ -275,6 +329,8 @@ public class MahJongModel extends Tile implements TileListener
 				discardList.add(selectedCopy);
 
 				discard.add(selectedCopy);
+				JScrollBar horizontal = scroller.getHorizontalScrollBar(); 
+				horizontal.setValue( horizontal.getMaximum() );
 								
 				undoStack.push(tile);
 				undoStack.push(selected);
