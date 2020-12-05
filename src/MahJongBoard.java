@@ -1,5 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.net.URL;
+
 import javax.swing.*;
 
 public class MahJongBoard extends JPanel implements MouseListener
@@ -23,7 +25,8 @@ public class MahJongBoard extends JPanel implements MouseListener
 		setLayout(null);
 		//addMouseListener(this);
 		setBackground(Color.red);
-		image = Toolkit.getDefaultToolkit().getImage("images/dragon_bg.png");
+		URL imgUrl = getClass().getResource("images/dragon_bg.png");
+		image = Toolkit.getDefaultToolkit().getImage(imgUrl);
 		MediaTracker tracker = new MediaTracker(this);
 		tracker.addImage(image, 0);
 		try {

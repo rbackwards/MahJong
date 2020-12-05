@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.net.URL;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -12,43 +13,53 @@ public class PictureTile extends Tile{
 		this.name = name;
 		
 		if(this.toString().equals("Bamboo 1")) {
-			image = Toolkit.getDefaultToolkit().getImage("images/Sparrow.png");
+			URL imgUrl = getClass().getResource("images/Sparrow.png");
+			image = Toolkit.getDefaultToolkit().getImage(imgUrl);
 			image = image.getScaledInstance(80, 80, image.SCALE_SMOOTH);
 		}
 		else if(name.equals("Chrysanthemum")) {
-			image = Toolkit.getDefaultToolkit().getImage("images/Chrysanthemum.png");
+			URL imgUrl = getClass().getResource("images/Chrysanthemum.png");
+			image = Toolkit.getDefaultToolkit().getImage(imgUrl);
 			image = image.getScaledInstance(80, 80, image.SCALE_SMOOTH);
 		}
 		else if(name.equals("Orchid")) {
-			image = Toolkit.getDefaultToolkit().getImage("images/Orchid.png");
+			URL imgUrl = getClass().getResource("images/Orchid.png");
+			image = Toolkit.getDefaultToolkit().getImage(imgUrl);
 			image = image.getScaledInstance(80, 80, image.SCALE_SMOOTH);	
 		}
 		else if(name.equals("Plum")) {
-			image = Toolkit.getDefaultToolkit().getImage("images/Plum.png");
+			URL imgUrl = getClass().getResource("images/Plum.png");
+			image = Toolkit.getDefaultToolkit().getImage(imgUrl);
 			image = image.getScaledInstance(80, 80, image.SCALE_SMOOTH);	
 		}
 		else if(name.equals("Bamboo")) {
-			image = Toolkit.getDefaultToolkit().getImage("images/Bamboo.png");
+			URL imgUrl = getClass().getResource("images/Bamboo.png");
+			image = Toolkit.getDefaultToolkit().getImage(imgUrl);
 			image = image.getScaledInstance(80, 80, image.SCALE_SMOOTH);
 		}
 		else if(name.equals("Spring")) {
-			image = Toolkit.getDefaultToolkit().getImage("images/Spring.png");
+			URL imgUrl = getClass().getResource("images/Spring.png");
+			image = Toolkit.getDefaultToolkit().getImage(imgUrl);
 			image = image.getScaledInstance(80, 80, image.SCALE_SMOOTH);
 		}
 		else if(name.equals("Spring")) {
-			image = Toolkit.getDefaultToolkit().getImage("images/Spring.png");
+			URL imgUrl = getClass().getResource("images/Spring.png");
+			image = Toolkit.getDefaultToolkit().getImage(imgUrl);
 			image = image.getScaledInstance(80, 80, image.SCALE_SMOOTH);
 		}
 		else if(name.equals("Summer")) {
-			image = Toolkit.getDefaultToolkit().getImage("images/Summer.png");
+			URL imgUrl = getClass().getResource("images/Summer.png");
+			image = Toolkit.getDefaultToolkit().getImage(imgUrl);
 			image = image.getScaledInstance(80, 80, image.SCALE_SMOOTH);
 		}
 		else if(name.equals("Fall")) {
-			image = Toolkit.getDefaultToolkit().getImage("images/Fall.png");
+			URL imgUrl = getClass().getResource("images/Fall.png");
+			image = Toolkit.getDefaultToolkit().getImage(imgUrl);
 			image = image.getScaledInstance(80, 80, image.SCALE_SMOOTH);
 		}
 		else if(name.equals("Winter")) {
-			image = Toolkit.getDefaultToolkit().getImage("images/Winter.png");
+			URL imgUrl = getClass().getResource("images/Winter.png");
+			image = Toolkit.getDefaultToolkit().getImage(imgUrl);
 			image = image.getScaledInstance(80, 80, image.SCALE_SMOOTH);
 		}
 		
