@@ -51,14 +51,16 @@ public class MahJongModel extends Tile implements TileListener
 			
 			for (int j = colSize-1; j >= 0; j--) {
 				Tile	tile = deck.deal();
-				if (tile == null)
+				if (tile == null)	
 				{
 					JOptionPane.showMessageDialog(null, "Empty Deck",
 							"Deal Error", JOptionPane.ERROR_MESSAGE);
 					System.exit(1);
 				}
+				tile.addTileListener(this);
 				tile.positionTile(i, j, layerNum, xOffSet(layerNum), yOffSet(layerNum));
 				row.addTile(tile);
+				tile.setRow(row);
 				board.add(tile);
 			}
 			
@@ -105,7 +107,8 @@ public class MahJongModel extends Tile implements TileListener
 							"Deal Error", JOptionPane.ERROR_MESSAGE);
 					System.exit(1);
 				}
-				
+				tile.addTileListener(this);
+				tile.setRow(theRow);
 				// handle special cases
 				int margin = 18;
 				if (row == 4) {

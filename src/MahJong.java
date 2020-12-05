@@ -19,7 +19,6 @@ public class MahJong extends JFrame implements ActionListener{
 		
 		setTitle("MahJong");
 		setSize(1800,1000);
-		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		add(board);
 		
 		addWindowListener(new WindowAdapter(){
@@ -100,11 +99,11 @@ public class MahJong extends JFrame implements ActionListener{
 		if(str.equals("Play")) {
 			gameNum = rand.nextInt(500);
 			//Container parent = getParent();
-			remove(board);
-			board = null;
-			board = new MahJongBoard(this, -1);
-			//board.newGame(-1);
-			add(board);
+			//remove(board);
+			//board = null;
+			//board = new MahJongBoard(this, gameNum);
+			board.newGame(gameNum);
+			//add(board);
 			//repaint();
 			
 		}

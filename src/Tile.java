@@ -146,8 +146,8 @@ public class Tile extends JPanel implements MouseListener{
 			System.out.println("X: " + x + " Y: " + y + " Layer: " + layer);
 			System.out.println();
 			setBackground(Color.BLACK);
-			parent.remove(this);
-			//listener.tileClicked(this);
+			//parent.remove(this);
+			listener.tileClicked(this);
 			parent.repaint();
 			clip.play(); // when the tiles are removed
 		}
