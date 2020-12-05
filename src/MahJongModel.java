@@ -1,9 +1,14 @@
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 
 public class MahJongModel extends Tile implements TileListener
@@ -14,7 +19,8 @@ public class MahJongModel extends Tile implements TileListener
 	private PlayClip clip = new PlayClip("audio/stone-scraping.wav", true);
 	private boolean sound = true;
 	private Tile selected;
-	private Stack<Tile> undoStack = new Stack();;
+	private Stack<Tile> undoStack = new Stack();
+	private	JPanel[]	discard = new JPanel[2];
 	
 	public MahJongModel(MahJongBoard board, int gameNum)
 	{
@@ -46,7 +52,7 @@ public class MahJongModel extends Tile implements TileListener
 		ArrayListOfRow(6, 6, deck, 1);
 		MakeBaseLayer(deck);
 		
-
+		undoPane();
 	}
 	
 	public ArrayList ArrayListOfRow(int rowSize, int colSize, TileDeck deck, int layerNum){
@@ -146,6 +152,16 @@ public class MahJongModel extends Tile implements TileListener
 		sound = b;
 	}
 	
+	public void undoPane() {
+		discard[0].setPreferredSize(new Dimension(0, 2 * 121 + 33));
+		setBorder(BorderFactory.createRaisedBevelBorder());
+
+		discard[0] = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		discard[1] = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		
+		discard[0].setBackground(Color.black);
+	}
+	
 	public void undo() {
 		try {
 		Tile tile1 = undoStack.pop();
@@ -199,12 +215,16 @@ public class MahJongModel extends Tile implements TileListener
 	
 
 	@Override
-		public void tileClicked(Tile tile) {
+		public void tileClicked(Tile tile) {			
 			System.out.println("I was clicked " + tile.toString());
 			
 			if(selected == tile) {
 				tile.setSelected(false);
 				selected = null;
+				return;
+			}
+			
+			if(!tile.getRow().isOpen(tile)){
 				return;
 			}
 			
@@ -225,7 +245,7 @@ public class MahJongModel extends Tile implements TileListener
 				
 			}
 			
-			else if (tile.getRow().isOpen(tile) && selected == null) {
+			else if (selected == null) {
 				tile.setSelected(true);
 				selected = tile;	
 			}

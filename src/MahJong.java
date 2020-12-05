@@ -16,7 +16,7 @@ public class MahJong extends JFrame implements ActionListener{
 	public MahJong()
 	{
 		board = new MahJongBoard(this, gameNum);
-		
+		System.out.println("Game seed: " + gameNum);
 		setTitle("MahJong");
 		setSize(1800,1000);
 		add(board);
@@ -104,7 +104,7 @@ public class MahJong extends JFrame implements ActionListener{
 			add(board);
 			revalidate();
 			repaint();
-			
+			System.out.println("Game seed: " + gameNum);
 		}
 		
 		if(str.equals("Restart")) {
@@ -114,6 +114,7 @@ public class MahJong extends JFrame implements ActionListener{
 			add(board);
 			revalidate();
 			repaint();
+			System.out.println("Game seed: " + gameNum);
 		}
 		
 		if(str.equals("Numbered")) {		
@@ -123,6 +124,7 @@ public class MahJong extends JFrame implements ActionListener{
 			add(board);
 			revalidate();
 			repaint();
+			System.out.println("Game seed: " + num);
 		}
 		
 		if(str.equals("Exit")) {
