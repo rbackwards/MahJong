@@ -56,9 +56,9 @@ public class MahJongModel extends Tile implements TileListener
 		
 		
 		//draw layers and add them to a list of layers						
-		//layerList.add(ArrayListOfRow(1, 1, deck, 4));
-		//layerList.add(ArrayListOfRow(2, 2, deck, 3));
-		//layerList.add(ArrayListOfRow(4, 4, deck, 2));
+		layerList.add(ArrayListOfRow(1, 1, deck, 4));
+		layerList.add(ArrayListOfRow(2, 2, deck, 3));
+		layerList.add(ArrayListOfRow(4, 4, deck, 2));
 		layerList.add(ArrayListOfRow(6, 6, deck, 1));
 		layerList.add(MakeBaseLayer(deck));
 		
